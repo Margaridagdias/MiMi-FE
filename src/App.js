@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Signup from "./components/Signup";
 import React from "react";
@@ -9,6 +9,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Main from "./components/Main";
 import Profile from "./components/Profile";
+import ProtectedRoute from "./components/ProtectedRoute";
+import CreatePost from "./components/CreatePost";
 
 class App extends React.Component {
   state = {
@@ -42,15 +44,34 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <h1>MiMi</h1>
         <Navbar
           loggedInUser={this.state.loggedInUser}
           setCurrentUser={this.setCurrentUser}
         />
-         <h1>MiMi</h1>
+
         <Switch>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/profile" component={Profile} />
-         
+          <ProtectedRoute
+            exact
+            path="/main"
+            authorized={this.state.loggedInUser}
+            redirect={"/login"}
+            render={(props) => <Main />}
+          />
+          <ProtectedRoute
+            exact
+            path="/profile"
+            authorized={this.state.loggedInUser}
+            redirect={"/login"}
+            render={(props) => <Profile />}
+          />
+          <ProtectedRoute
+            path="/profile/:id"
+            authorized={!this.state.loggedInUser}
+            redirect={"/login"}
+            render={(props) => <Profile />}
+          />
+          <Route path="/create-post" component={CreatePost} />
           <Route path="/signup" component={Signup} />
           <Route
             path="/login"

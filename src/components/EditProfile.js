@@ -17,7 +17,7 @@ class EditProfile extends React.Component {
     componentDidMount() {
         const id = this.props.match.params.id;
         const profileService = new ProfileService();
-        profileService.getProject(id)
+        profileService.getProfile(id)
         .then((response) => {
           this.setState({
               username: response.data.username,

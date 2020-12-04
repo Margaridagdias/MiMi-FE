@@ -1,38 +1,43 @@
-import axios from 'axios';
+import axios from "axios";
 
 class ProfileService {
-    constructor() {
-        let service = axios.create({
-            baseURL: `${process.env.REACT_APP_PROJECT3_API}/api`
-        });
-        this.service = service;
-    }
+  constructor() {
+    let service = axios.create({
+      baseURL: `${process.env.REACT_APP_PROJECT3_API}/api`,
+      withCredentials: true,
+    });
+    this.service = service;
+  }
 
-    getAll() {
-        //axios.get('http://localhost:5000/characters);
-        return this.service.get('/profile');
-    }
+  getAllPictures() {
+    //axios.get('http://localhost:5000/characters);
+    return this.service.get("/pictures");
+  }
 
-    getProject(id) {
-        //axios.get('http://localhost:5000/characters/1);
-        return this.service.get(`/profile/${id}`);
-    }
+  getProfile(id) {
+    //for search bar?
 
-    addProject(profile) {
-        //axios.post('http://localhost:5000/characters/, { name: 'miguel});
-        return this.service.post('/profile', profile);
-    }
+    return this.service.get(`/profile/${id}`);
+  }
 
-    //CREAYE DELETE PROKECT FUNTION FOR OUR profileervice
+  getMyProfile() {
+    return this.service.get("/my-profile");
+  }
 
-    deleteProject(id) {
-        return this.service.delete(`/profile/${id}`);
-    }
+  editProfile(editProfile) {
+    return this.service.put(
+      `/edit-profile/${editProfile.username}`,
+      editProfile
+    );
+  }
 
-    updateProject(updatedProfile) {
-        return this.service.put(`/profile/${updatedProfile.id}`, updatedProfile);
-    }
+
+addPost(imageUrl, description) {
+    return this.service.post("/create-post",{imageUrl, description});
+  }
+  uploadFile(uploadData) {
+    return this.service.post("/upload", uploadData);
+  }
 }
-
 
 export default ProfileService;
