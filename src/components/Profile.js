@@ -6,7 +6,7 @@ import EditProfile from "./EditProfile";
 class Profile extends React.Component {
   state = {
     username: "",
-    description: "",
+    bio: "",
     image: "",
   };
 
@@ -14,13 +14,10 @@ class Profile extends React.Component {
     const profileService = new ProfileService();
 
     profileService.getMyProfile().then((user) => {
-      console.log(user);
-      console.log("ola");
-
       this.setState({
         username: user.data.username,
         image: user.data.imageUrl,
-        //
+        bio: user.data.bio
         //
       });
     });
@@ -32,14 +29,27 @@ class Profile extends React.Component {
     return (
       <div>
         <div>This is the profile page</div>
+        <div>
+          <button onClick={() => this.props.history.push(`/edit-profile`)}>
+            Edit
+          </button>
+        </div>
 
         <h2>user:{this.state.username}</h2>
-        <h3>description: {this.state.description}</h3>
-        <img src={this.state.image} />
+        <h3>bio: {this.state.bio}</h3>
+        <img src={this.state.image} alt="" />
+
         <div>
           <button onClick={() => this.props.history.push(`/create-post`)}>
             Create New Post
           </button>
+        </div>
+
+        <div>
+          <audio src="savage.mp3" autoplay controls>
+            Error: your web browser does not support this audio player.
+          </audio>
+          
         </div>
       </div>
     );

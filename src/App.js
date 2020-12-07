@@ -11,6 +11,7 @@ import Main from "./components/Main";
 import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePost from "./components/CreatePost";
+import EditProfile from "./components/EditProfile";
 
 class App extends React.Component {
   state = {
@@ -54,25 +55,34 @@ class App extends React.Component {
           <ProtectedRoute
             exact
             path="/main"
-            authorized={this.state.loggedInUser}
             redirect={"/login"}
             render={(props) => <Main />}
           />
           <ProtectedRoute
             exact
             path="/profile"
-            authorized={this.state.loggedInUser}
             redirect={"/login"}
             render={(props) => <Profile />}
           />
           <ProtectedRoute
             path="/profile/:id"
-            authorized={!this.state.loggedInUser}
             redirect={"/login"}
             render={(props) => <Profile />}
           />
-          <Route path="/create-post" component={CreatePost} />
+          <ProtectedRoute
+            path="/create-post"
+            redirect={"/login"}
+            render={(props) => <CreatePost />}
+          />
+
+          <ProtectedRoute
+            path="/edit-profile"
+            redirect={"/login"}
+            render={(props) => <EditProfile />}
+          />
+
           <Route path="/signup" component={Signup} />
+
           <Route
             path="/login"
             render={() => {

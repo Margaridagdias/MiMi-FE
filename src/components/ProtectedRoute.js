@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 
 const ProtectedRoute = ({ authorized, redirect, ...props }) => {
-  if (authorized) {
+  if (localStorage.getItem("loggedInUser")) {
     return <Route {...props} />;
   } else {
     return <Redirect to={redirect} />;

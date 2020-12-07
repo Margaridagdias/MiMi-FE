@@ -1,73 +1,112 @@
-import React from 'react'
-import ProfileService from '../utils/api'
-import {withRouter} from 'react-router-dom'
+import React from "react";
+import ProfileService from "../utils/api";
+import { withRouter } from "react-router-dom";
+import Profile from "./Profile";
 
 class EditProfile extends React.Component {
-    state = {
-        username: '',
-        password: '',
-        email: '',
-        name:''
-    }
+  state = {
+    username: "",
+    email: "",
+    name: "",
+    bio: "",
+    file: ""
+    //imageUrl:'',
+    //bgMusic: ''
+  };
 
-    //Component lifecycle method
-    //get the id of the project that comes from the url
-    //then create an instance of ProfileService
-    //and set the state with the project details - getProject(id)
-    componentDidMount() {
-        const id = this.props.match.params.id;
-        const profileService = new ProfileService();
-        profileService.getProfile(id)
-        .then((response) => {
-          this.setState({
-              username: response.data.username,
-            password: response.data.password,
-            email: response.data.email,
-            name: response.data.name
-          });
-        });
-      }
-    
+  componentDidMount() {
+    const profileService = new ProfileService();
+    profileService.getMyProfile().then((response) => {
+      this.setState({
+        username: response.data.username,
+        email: response.data.email,
+        name: response.data.name,
+        bio: response.data.bio
+
+        //image: response.data.imageUrl,
+        // bgMusic: response.data.bgMusic,
+      });
+    });
+  }
+
+  handleChange = (event) => {
+    let { name, value } = event.target;
+
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    const profileService = new ProfileService();
+    const uploadData = new FormData();
+    uploadData.append("file", this.state.file);
+    profileService.uploadFile(uploadData).then((uploadResponse) => {
+      let updatedProfile = {
+        username: this.state.username,
+        email: this.state.email,
+        name: this.state.name,
+        bio: this.state.bio,
+        imageUrl: uploadResponse.data.fileUrl
+      };
+      profileService.editProfile(updatedProfile).then(() => {
+        this.props.history.push(`/profile`);
+      });
+    });
+  };
 
 
-    handleChange = (event) => {
-        let { name, value } = event.target;
-  
-        this.setState({
-            [name]: value
-        })
-    }
+  handleFileChange = (event) => {
+    this.setState({ file: event.target.files[0] });
+  };
 
-    handleFormSubmit = (event) => {
-        event.preventDefault();
-        const profileService = new ProfileService();
-        profileService.updateProfile(this.state)
-        .then(() => {
-            this.props.history.push(`/profile/${this.state.id}`);
-        });
-        
-      }
-    
-  
-        render() {
-            return(
-                <form onSubmit={this.handleFormSubmit}>
-              <label>Username:</label>
-              <input type="text" name="username" onChange={this.handleChange}  value={this.state.username}/>
+  render() {
+    return (
+      <form onSubmit={this.handleFormSubmit}>
+        <label>Username:</label>
+        <input
+          type="text"
+          name="username"
+          onChange={this.handleChange}
+          value={this.state.username}
+        />
 
-              <label>Password:</label>
-              <input type="password" name="password" onChange={this.handleChange} value={this.state.password}/>
+        <label>Email:</label>
+        <input
+          type="text"
+          name="email"
+          onChange={this.handleChange}
+          value={this.state.email}
+        />
 
-              <label>Email:</label>
-              <input type="text" name="email" onChange={this.handleChange}  value={this.state.email}/>
+        <label>Name:</label>
+        <input
+          type="text"
+          name="name"
+          onChange={this.handleChange}
+          value={this.state.name}
+        />
 
-              <label>Name:</label>
-              <input type="text" name="name" onChange={this.handleChange}  value={this.state.name}/>
+        <label>Bio</label>
+        <input
+          type="text"
+          name="bio"
+          onChange={this.handleChange}
+          value={this.state.bio}
+        />
 
-              <button>Save</button>
-          </form>
-      )
+        <label>Profile picture</label>
+        <input type="file" onChange={this.handleFileChange} />
+        {/*
+              <label>Background Music</label>
+              <audio src="../../public/savage.mp3" autoplay controls>Error: your web browser does not support this audio player.</audio>
+ */}
+
+        <button>Save</button>
+      </form>
+    );
   }
 }
- 
-export default withRouter(EditProfile)
+
+export default withRouter(EditProfile);

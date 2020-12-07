@@ -6,7 +6,7 @@ import Main from "./Main"
 class CreatePost extends React.Component {
   state = {
     file: "",
-    description: "",
+    description: ""
   };
 
   handleChange = (event) => {
@@ -21,9 +21,10 @@ class CreatePost extends React.Component {
     uploadData.append("file", this.state.file);
         profileService.uploadFile(uploadData)
         .then((imageUrl) => {
-            return  profileService.addPost(imageUrl, this.state.description)
+          console.log(imageUrl)
+            return  profileService.addPost(imageUrl.data.fileUrl, this.state.description)
             .then(() => {
-                this.history.push('/main');
+                this.props.history.push('/main');
 
             })
      
@@ -41,10 +42,10 @@ class CreatePost extends React.Component {
         <h2>New Post</h2>
         <form onSubmit={this.handleFormSubmit} encType="multipart/form-data">
           <label>New photo</label>
-          <input type="file" onChange={this.handleFileChange} />
+          <input type="file" onChange={this.handleFileChange}/>
           <label>Description</label>
-          <input type="text" />
-          <input type="submit" value="Post" />
+          <input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
+          <input type="submit"  value="Post" />
         </form>
       </div>
     );

@@ -11,13 +11,13 @@ class ProfileService {
 
   getAllPictures() {
     //axios.get('http://localhost:5000/characters);
-    return this.service.get("/pictures");
+    return this.service.get("/main");
   }
 
-  getProfile(id) {
+  getProfile() {
     //for search bar?
 
-    return this.service.get(`/profile/${id}`);
+    return this.service.get(`/profile`);
   }
 
   getMyProfile() {
@@ -25,15 +25,12 @@ class ProfileService {
   }
 
   editProfile(editProfile) {
-    return this.service.put(
-      `/edit-profile/${editProfile.username}`,
-      editProfile
-    );
+    return this.service.put('/edit-profile', editProfile);
   }
 
 
 addPost(imageUrl, description) {
-    return this.service.post("/create-post",{imageUrl, description});
+    return this.service.post("/create-post", {imageUrl, description});
   }
   uploadFile(uploadData) {
     return this.service.post("/upload", uploadData);
