@@ -29,12 +29,17 @@ class ProfileService {
   }
 
 
-addPost(imageUrl, description) {
-    return this.service.post("/create-post", {imageUrl, description});
+addPost(imageUrl, description, id) {
+    return this.service.post("/create-post", {imageUrl, description, id});
   }
   uploadFile(uploadData) {
     return this.service.post("/upload", uploadData);
   }
+
+getTrends() {
+  return this.service.get("/trends")
+}
+
 }
 
 export default ProfileService;

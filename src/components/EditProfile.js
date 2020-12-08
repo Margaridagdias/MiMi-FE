@@ -9,9 +9,9 @@ class EditProfile extends React.Component {
     email: "",
     name: "",
     bio: "",
-    file: ""
-    //imageUrl:'',
-    //bgMusic: ''
+    profilePicture: "",
+    backgroundImage: "",
+    font: "",
   };
 
   componentDidMount() {
@@ -21,7 +21,7 @@ class EditProfile extends React.Component {
         username: response.data.username,
         email: response.data.email,
         name: response.data.name,
-        bio: response.data.bio
+        bio: response.data.bio,
 
         //image: response.data.imageUrl,
         // bgMusic: response.data.bgMusic,
@@ -40,25 +40,34 @@ class EditProfile extends React.Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
     const profileService = new ProfileService();
+
     const uploadData = new FormData();
-    uploadData.append("file", this.state.file);
-    profileService.uploadFile(uploadData).then((uploadResponse) => {
-      let updatedProfile = {
-        username: this.state.username,
-        email: this.state.email,
-        name: this.state.name,
-        bio: this.state.bio,
-        imageUrl: uploadResponse.data.fileUrl
-      };
-      profileService.editProfile(updatedProfile).then(() => {
-        this.props.history.push(`/profile`);
+    uploadData.append("file", this.state.profilePicture);
+
+    const uploadData2 = new FormData();
+    uploadData2.append("file", this.state.backgroundImage);
+
+    profileService.uploadFile(uploadData).then((uploadProfile) => {
+      return profileService.uploadFile(uploadData2).then((uploadBackground) => {
+        let updatedProfile = {
+          username: this.state.username,
+          email: this.state.email,
+          name: this.state.name,
+          bio: this.state.bio,
+          imageUrl: uploadProfile.data.fileUrl,
+          bgImage: uploadBackground.data.fileUrl,
+          font: this.state.font,
+        };
+        return profileService.editProfile(updatedProfile).then(() => {
+          this.props.history.push(`/profile`);
+        });
       });
     });
   };
 
-
   handleFileChange = (event) => {
-    this.setState({ file: event.target.files[0] });
+    let { name } = event.target;
+    this.setState({ [name]: event.target.files[0] });
   };
 
   render() {
@@ -96,12 +105,26 @@ class EditProfile extends React.Component {
           value={this.state.bio}
         />
 
-        <label>Profile picture</label>
-        <input type="file" onChange={this.handleFileChange} />
-        {/*
-              <label>Background Music</label>
-              <audio src="../../public/savage.mp3" autoplay controls>Error: your web browser does not support this audio player.</audio>
- */}
+        <label>Profile Picture</label>
+        <input
+          type="file"
+          name="profilePicture"
+          onChange={this.handleFileChange}
+        />
+
+        <label>Background Image</label>
+        <input
+          type="file"
+          name="backgroundImage"
+          onChange={this.handleFileChange}
+        />
+
+        <label>Font</label>
+        <select name="font" onChange={this.handleChange}>
+          <option value="Segoe UI">Font A</option>
+          <option value="Comic Sans MS">Font b</option>
+          <option value="Bradley Hand">Font c</option>
+        </select>
 
         <button>Save</button>
       </form>

@@ -22,7 +22,7 @@ class CreatePost extends React.Component {
         profileService.uploadFile(uploadData)
         .then((imageUrl) => {
           console.log(imageUrl)
-            return  profileService.addPost(imageUrl.data.fileUrl, this.state.description)
+            return  profileService.addPost(imageUrl.data.fileUrl, this.state.description, this.props.loggedInUser._id)
             .then(() => {
                 this.props.history.push('/main');
 
@@ -38,7 +38,7 @@ class CreatePost extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{backgroundImage:`url(${this.state.image})`, backgroundSize:"cover"}}>
         <h2>New Post</h2>
         <form onSubmit={this.handleFormSubmit} encType="multipart/form-data">
           <label>New photo</label>

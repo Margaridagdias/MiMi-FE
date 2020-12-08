@@ -45,7 +45,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>MiMi</h1>
+    <div className="logo">
+    <img src="../public/logo.png" alt="" />
+    </div>
+
+  
+
+       
         <Navbar
           loggedInUser={this.state.loggedInUser}
           setCurrentUser={this.setCurrentUser}
@@ -72,8 +78,9 @@ class App extends React.Component {
           <ProtectedRoute
             path="/create-post"
             redirect={"/login"}
-            render={(props) => <CreatePost />}
-          />
+            render={(props) => <CreatePost loggedInUser={this.state.loggedInUser}/>}
+            />
+          
 
           <ProtectedRoute
             path="/edit-profile"
