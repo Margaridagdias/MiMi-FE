@@ -47,7 +47,7 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ backgroundImage: `url(${this.state.bgImage})`, backgroundSize: "cover"}}>
         <form onSubmit={this.handleFormSubmit} encType="multipart/form-data">
           <label>Username:</label>
           <input

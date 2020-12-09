@@ -6,6 +6,7 @@ class Main extends React.Component {
     posts: [],
     bgImage: "",
     trends: [],
+    username: ""
   };
 
   componentDidMount() {
@@ -20,6 +21,7 @@ class Main extends React.Component {
       console.log(user);
       this.setState({
         bgImage: user.data.thisUser.bgImage,
+        username:user.data.thisUser.username
       });
     });
 
@@ -33,12 +35,7 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div
-        style={{
-          backgroundImage: `url(${this.state.bgImage})`,
-          backgroundSize: "cover",
-        }}
-      >
+      <div>
         <div>
         <h3>Trending on Twitter</h3>
           <ul>
@@ -57,27 +54,48 @@ class Main extends React.Component {
         <div>
           <h1>This is the main page</h1>
         </div>
-        <div>
-          <ul>
+       
+
+
+            <div className="container d-flex flex-wrap">
             {this.state.posts.length > 0
               ? this.state.posts.map((post, index) => {
                   return (
-                    <li key={index}>
-                      <img
+                   
+                      <div class="card-box col-md-5 col-sm-12">
+                <div class="card card-with-border" data-background="image" data-src={post.imageUrl}>
+                <img className="image-card"
                         src={post.imageUrl}
                         alt="post"
                         width="450px"
                         height="600px"
                       />
-                      <p>{post.description}</p>
-                      <p>{post.username}</p>
-                    </li>
+
+                    <div class="content text-center">
+                        <p class="description">{post.description}</p>
+                    </div>
+                    </div>
+                    </div>
+
+                 
                   );
                 })
               : null}
-          </ul>
-        </div>
-      </div>
+         </div>
+       
+
+
+        <div class="page-description-footer">
+
+<p>Copyright &copy; 2020 <a href="github.com/margaridagdias">Margarida Dias</a>, made with <i class="fa fa-heart ct-heart"></i> for a better web.</p>
+</div>
+
+<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/js/hipster-cards.js"></script>
+
+</div>
+
     );
   }
 }

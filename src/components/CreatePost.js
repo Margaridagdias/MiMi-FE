@@ -3,10 +3,12 @@ import ProfileService from "../utils/api";
 import { withRouter } from "react-router-dom";
 import Main from "./Main"
 
+
 class CreatePost extends React.Component {
   state = {
     file: "",
-    description: ""
+    description: "",
+    bgImage:""
   };
 
   handleChange = (event) => {
@@ -36,9 +38,24 @@ class CreatePost extends React.Component {
     this.setState({ file: event.target.files[0] });
   };
 
+
+  
+  componentDidMount() {
+    const profileService = new ProfileService();
+    profileService.getMyProfile().then((user) => {
+        console.log(user);
+    this.setState({
+        bgImage: user.data.thisUser.bgImage,
+      });
+    });
+}
+
+
+
   render() {
     return (
-      <div style={{backgroundImage:`url(${this.state.image})`, backgroundSize:"cover"}}>
+      <div style={{backgroundImage:`url(${this.state.image})`, backgroundSize:"cover",  width:"100%",
+      height:"100vh"}}>
         <h2>New Post</h2>
         <form onSubmit={this.handleFormSubmit} encType="multipart/form-data">
           <label>New photo</label>

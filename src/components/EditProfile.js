@@ -17,11 +17,12 @@ class EditProfile extends React.Component {
   componentDidMount() {
     const profileService = new ProfileService();
     profileService.getMyProfile().then((response) => {
+
       this.setState({
-        username: response.data.username,
-        email: response.data.email,
-        name: response.data.name,
-        bio: response.data.bio,
+        username: response.data.thisUser.username,
+        email: response.data.thisUser.email,
+        name: response.data.thisUser.name,
+        bio: response.data.thisUser.bio,
 
         //image: response.data.imageUrl,
         // bgMusic: response.data.bgMusic,
@@ -72,6 +73,8 @@ class EditProfile extends React.Component {
 
   render() {
     return (
+      //<div style={{ backgroundImage: ("background.jpg"), backgroundSize: "cover", width:"100%", height:"100vh"}}>
+      <div className="login">
       <form onSubmit={this.handleFormSubmit}>
         <label>Username:</label>
         <input
@@ -128,6 +131,7 @@ class EditProfile extends React.Component {
 
         <button>Save</button>
       </form>
+      </div>
     );
   }
 }

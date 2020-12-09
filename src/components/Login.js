@@ -3,6 +3,9 @@ import AuthService from '../utils/auth';
 import { Link, withRouter } from 'react-router-dom';
 
 
+
+
+
 class Login extends React.Component {
     state = {
         username: '',
@@ -10,10 +13,10 @@ class Login extends React.Component {
     }
 
 
-    handleChange = (event) => {  
-        const {name, value} = event.target;
-        this.setState({[name]: value});
-    }
+    handleChange = (event) => {
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
+      };
 
 
     handleFormSubmit = (event) => {
@@ -39,20 +42,44 @@ class Login extends React.Component {
     }
 
 
+
+
     render() {
         return(
-            <div>
-                <form onSubmit={this.handleFormSubmit}>
-                    <label>Username:</label>
-                    <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
-                    <label>Password:</label>
-                    <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-                    <button>Login</button>
-                </form>
+
+        <div>
+        <div class="sidenav">
+         <div class="login-main-text">
+            <h2>MiMi</h2>
+            <h2>Login Page</h2>
+            <p>Login here to access.</p>
+         </div>
+      </div>
+
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+               <form onSubmit={this.handleFormSubmit} >
+                  <div class="form-group">
+                     <label>User Name</label>
+                     <input type="text" class="form-control" name='username' placeholder="User Name" value={this.state.username} onChange={this.handleChange} required/>
+                  </div>
+                  
+                  <div class="form-group">        
+                     <label>Password</label>
+                     <input type="password" class="form-control" name='password' placeholder="Password" value={this.state.password} onChange={this.handleChange} required/>
+                  </div>
+                  <button type="submit" class="btn btn-black">Login</button>
+                  
                 <p>Don't have account? 
                     <Link to={"/signup"}> Signup</Link>
                 </p>
+               </form>
             </div>
+         </div>
+      </div>
+      </div>
+
 
 
         )

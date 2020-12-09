@@ -2,6 +2,7 @@ import React from "react";
 import ProfileService from "../utils/api";
 import { withRouter } from "react-router-dom";
 import EditProfile from "./EditProfile";
+import {BlogCard, Front, Back, MainArea, ImageArea} from './FlippingCardPage';
 
 class Profile extends React.Component {
   state = {
@@ -28,7 +29,7 @@ class Profile extends React.Component {
 
         //
       });
-      debugger;
+
       document.body.style.fontFamily = this.state.font;
     });
   }
@@ -37,12 +38,7 @@ class Profile extends React.Component {
   //CLOUDINARYYYYYYYYYYYYYYYYYYYYYY
   render() {
     return (
-      <div
-        style={{
-          backgroundImage: `url(${this.state.bgImage})`,
-          backgroundSize: "cover",
-        }}
-      >
+      <div>
         {/* <img src={this.state.image} alt="" style={{width:"100%", height:"100vh"}}/> */}
 
         <div>This is the profile page</div>
@@ -58,47 +54,45 @@ class Profile extends React.Component {
             alt=""
             width="100px"
             height="150px"
-            roundedCircle
+       
           />
         </div>
 
         <h2>user:{this.state.username}</h2>
         <h3>bio: {this.state.bio}</h3>
-
-        <div>
-          <ul>
-            {this.state.posts.length > 0
+      <div className="container d-flex">
+        {this.state.posts.length > 0
               ? this.state.posts.map((post, index) => {
                   return (
-                    <li key={index}>
-                      <img
-                        src={post.imageUrl}
-                        alt="post"
-                        width="450px"
-                        height="600px"
-                      />
-                      <p>{post.description}</p>
-                    </li>
-                  );
-                })
-              : null}
-          </ul>
-        </div>
+                    <BlogCard props={post}/>
+                  ) 
+                  
 
-        <div>
-          <button onClick={() => this.props.history.push(`/create-post`)}>
+                  }
+              ) : null
+              }
+            
+
+
+</div>
+
+<div>
+<footer class="page-footer font-small white">
+<button onClick={() => this.props.history.push(`/create-post`)}>
             Create New Post
           </button>
-        </div>
-
+      
         <div>
           <audio src="savage.mp3" autoplay controls>
             Error: your web browser does not support this audio player.
           </audio>
         </div>
-      </div>
+  
+</footer>
+</div>
+    </div>
     );
   }
-}
+} 
 
 export default withRouter(Profile);

@@ -12,17 +12,33 @@ import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePost from "./components/CreatePost";
 import EditProfile from "./components/EditProfile";
+import background from './background.jpg'
 
 class App extends React.Component {
   state = {
     loggedInUser: null,
+    bgImage: background
   };
 
   setCurrentUser = (user) => {
     this.setState({
       loggedInUser: user,
     });
+    this.setBgImage();
   };
+
+  setBgImage = () => {
+    if(this.state.loggedInUser) {
+      this.setState({
+        bgImage: this.state.loggedInUser.bgImage,
+      });
+
+    } else {
+      this.setState({
+        bgImage: background,
+      });
+    }
+  }
 
   componentDidMount() {
     if (this.state.loggedInUser === null) {
@@ -44,14 +60,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-    <div className="logo">
-    <img src="../public/logo.png" alt="" />
-    </div>
-
-  
-
-       
+      <div className="App"  style={{ backgroundImage: this.state.loggedInUser ? `url(${this.state.bgImage})` : `url(${background})`, backgroundSize: "cover", width:"100%", height:"100vh"}}>
         <Navbar
           loggedInUser={this.state.loggedInUser}
           setCurrentUser={this.setCurrentUser}
@@ -91,6 +100,14 @@ class App extends React.Component {
           <Route path="/signup" component={Signup} />
 
           <Route
+          exact
+            path="/"
+            render={() => {
+              return <Login setCurrentUser={this.setCurrentUser} />;
+            }}
+          />
+          <Route
+          exact
             path="/login"
             render={() => {
               return <Login setCurrentUser={this.setCurrentUser} />;
