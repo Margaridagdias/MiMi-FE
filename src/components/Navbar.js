@@ -15,30 +15,41 @@ class Navbar extends React.Component {
     if (this.props.loggedInUser) {
       return (
         <div className="navbar-top">
-          <nav>
-            <ul>
-              <li>Welcome {this.props.loggedInUser.username}</li>
-              <li>
-                <NavLink to="/">
-                  <button onClick={this.logoutUser}>Logout</button>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink activeStyle={{ color: "red" }} exact to="/main">
+        <header>
+  <div class="overlay"></div>
+  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source src="beyonce.mp4" type="video/mp4" />
+  </video>
+  <div class="container h-100">
+    <div class="d-flex h-100 text-center align-items-center">
+      <div class="w-100 text-white">
+        
+        <div className="lead mb-6 width: 50vh"> 
+        
+        <NavLink activeStyle={{ color: "red" }} exact to="/main">
                   Home
                 </NavLink>
-              </li>
-              <li>
+
                 <NavLink activeStyle={{ color: "red" }} exact to="/profile">
                   Profile
                 </NavLink>
-              </li>
-            </ul>
-          </nav>
-        </div>
+
+                <NavLink to="/">
+                  <button onClick={this.logoutUser}>Logout</button>
+                </NavLink>
+                </div>
+        
+      </div>
+    </div>
+  </div>
+</header>
+
+  </div>
+        
       );
     } else {
       return (
+        <div>
         <nav>
           <ul>
             <li>
@@ -53,6 +64,7 @@ class Navbar extends React.Component {
             </li>
           </ul>
         </nav>
+        </div>
       );
     }
   }

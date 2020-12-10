@@ -60,11 +60,13 @@ class Profile extends React.Component {
 
         <h2>user:{this.state.username}</h2>
         <h3>bio: {this.state.bio}</h3>
-      <div className="container d-flex">
+      <div className="container d-flex mb-5 flex-wrap space-around"> 
+    
         {this.state.posts.length > 0
               ? this.state.posts.map((post, index) => {
                   return (
                     <BlogCard props={post}/>
+                  
                   ) 
                   
 
@@ -76,7 +78,7 @@ class Profile extends React.Component {
 
 </div>
 
-<div>
+<div className="profile-btn mt-5">
 <footer class="page-footer font-small white">
 <button onClick={() => this.props.history.push(`/create-post`)}>
             Create New Post

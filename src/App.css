@@ -36,6 +36,7 @@
 /* CSS CODIGO BOOTSTRAP GIRO */
 body {
   font-family: "Lato", sans-serif;
+  
 }
 
 
@@ -55,7 +56,7 @@ body {
 
 /* ALTEREI */
 .main-login {
-  padding: 0px 10px;
+  padding: 0px 20px;
 }
 
 @media screen and (max-height: 450px) {
@@ -134,7 +135,7 @@ body {
 
 
 .card.card-with-border .content {
-  padding: 15px 15px 25px 15px;
+  padding: 10px 15px 5px 15px;
 }
 .card.card-with-border .footer {
   padding-bottom: 25px;
@@ -174,6 +175,8 @@ body {
 .image-card {
   width: 100%;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 } 
 
 /* CSS ROTATIVE */
@@ -182,14 +185,22 @@ body #root  .card-container {
   margin: 0;
   padding: 0;
   top: 20px;
-  width: 400px;
+  width: 300px;
   margin-left: 35%;
   margin-right: 35%;
   position: relative;
   transform-style: preserve-3d;
   box-sizing: border-box;
-  align: space-between
+  margin: 4vh !important;
+ 
 }
+
+span {
+    width: 50px;
+    height: 50px;
+    background: black;
+  }
+
 body #root .card-container.flipped .front {
   transform: rotateY(180deg);
 }
@@ -228,7 +239,7 @@ body #root  .card-container .image-container {
 }
 
 .card-image {
-  width: 400px;
+  width: 300px;
   height:400px;
   border-radius: 10px;
 }
@@ -252,4 +263,100 @@ body #root .card-container .main-area .blog-post .blog-content {
   text-overflow: ellipsis;
 }
 
+.profile-btn {
+  margin-top: 70px !important;
+}
 
+header {
+  position: relative;
+  background-color: black;
+  height: 25vh;
+  min-height: 20vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+header video {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+header .container {
+  position: relative;
+  z-index: 2;
+  margin: 6
+}
+
+header .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+@media (pointer: coarse) and (hover: none) {
+  header {
+    background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+  }
+  header video {
+    display: none;
+  }
+}
+
+.lead {
+  justify-content: space-between;
+  display: flex;
+}
+
+
+/* OUTER CONTAINER */
+.tcontainer {
+  width: 100%;
+  overflow: hidden; /* Hide scroll bar */
+}
+ 
+/* MIDDLE CONTAINER */
+.ticker-wrap {
+  width: 100%;
+  padding-left: 100%; /* Push contents to right side of screen */
+  background-color: #eee;
+}
+
+/* INNER CONTAINER */
+@keyframes ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+.ticker-move {
+  /* Basically move items from right side of screen to left in infinite loop */
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 100%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-name: ticker;
+  animation-duration: 10s;
+}
+.ticker-move:hover{
+  animation-play-state: paused; /* Pause scroll on mouse hover */
+}
+
+/* ITEMS */
+.ticker-item{
+  display: inline-block; /* Lay items in a horizontal line */
+  padding: 0 2rem;
+}

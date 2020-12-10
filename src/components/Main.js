@@ -26,10 +26,11 @@ class Main extends React.Component {
     });
 
     profileService.getTrends().then((response) => {
-      let trends = response.data.splice(0, 10);
-      this.setState({
-        trends: trends,
-      });
+       let trends = response.data.splice(0, 10);
+      console.log(response.data)
+       this.setState({
+         trends: trends,
+       });
     });
   }
 
@@ -38,6 +39,13 @@ class Main extends React.Component {
       <div>
         <div>
         <h3>Trending on Twitter</h3>
+        <div class="tcontainer"><div class="ticker-wrap"><div class="ticker-move">
+  <div class="ticker-item">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+  <div class="ticker-item">Aliquam consequat varius consequat.</div>
+  <div class="ticker-item">Fusce dapibus turpis vel nisi malesuada sollicitudin.</div>
+  <div class="ticker-item">Pellentesque auctor molestie orci ut blandit.</div>
+</div></div></div>
+  
           <ul>
             {this.state.trends.length > 0
               ? this.state.trends.map((trend, index) => {
@@ -56,7 +64,7 @@ class Main extends React.Component {
         </div>
        
 
-
+        <div class="row">
             <div className="container d-flex flex-wrap">
             {this.state.posts.length > 0
               ? this.state.posts.map((post, index) => {
@@ -67,8 +75,8 @@ class Main extends React.Component {
                 <img className="image-card"
                         src={post.imageUrl}
                         alt="post"
-                        width="450px"
-                        height="600px"
+                        width="150px"
+                        height="550px"
                       />
 
                     <div class="content text-center">
@@ -76,13 +84,13 @@ class Main extends React.Component {
                     </div>
                     </div>
                     </div>
-
+                  
                  
                   );
                 })
               : null}
          </div>
-       
+         </div>
 
 
         <div class="page-description-footer">
